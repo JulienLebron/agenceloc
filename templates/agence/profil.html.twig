@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container text-center mt-5">
+    <h1>Profil</h1>
+    <div class="card mt-5" style="width: 80rem; margin: 0 auto">
+        <img src="{{ asset('images/agence/banniere-profil1.jpg') }}" alt="image profil" class="card-img-top"
+            style="object-fit: contain;">
+        <div class="card-body mt-2">
+            <div class="alert alert-info">
+                Ci-dessous vous trouverez vos informations personnelles
+            </div>
+            <div class="alert alert-warning">💬 En cas de mofification de vos données personnelles, vous devrez choisir un nouveau mot de passe</div>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr style="background: #FF6E14; color: white;">
+                        <th scope="col">Email</th>
+                        <th scope="col">Pseudo</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Civilité</th>
+                        <th scope="col">Date d'inscription</th>
+                    </tr>
+                    <tr>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.pseudo }}</td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>{{ user.civility }}</td>
+                        <td>{{ user.createdAt | date('d/m/Y') }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center mt-2">
+                <a href="{{ path('app_register_edit', {'id': user.id}) }}" class="btn btn-primary" style="background: #0D6EFD;">💬 Modifier vos informations personnelles</a>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-5" style="width: 80rem; margin: 0 auto">
+        <img src="{{ asset('images/agence/banniere-profil.jpg') }}" alt="image profil" class="card-img-top"
+            style="object-fit: contain;">
+        <div class="card-body mt-2">
+            <div class="alert alert-info">
+                Ci-dessous vous trouverez l'historique de vos commandes
+            </div>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr style="background: #FF6E14; color: white;">
+                        <th scope="col">Commande</th>
+                        <th scope="col">Véhicule</th>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Date et heure de départ</th>
+                        <th scope="col">Date et heure de fin</th>
+                        <th scope="col">Prix total</th>
+                        <th scope="col">Date et heure d'enregistrement</th>
+                    </tr>
+                    {% for commande in user.commandes %}
+                    <tr>
+                        <td>{{ commande.id }}</td>
+                        <td>{{ commande.vehicules.title }}</td>
+                        <td><img src="{{ asset('images/vehicules/' ~ commande.vehicules.image) }}" alt="photo du véhicule" style="height: 150px; object-fit: contain;"></td>
+                        <td>{{ commande.startAt | date('d/m/Y') }}</td>
+                        <td>{{ commande.endAt | date('d/m/Y') }}</td>
+                        <td>{{ commande.total }}</td>
+                        <td>{{ commande.createdAt | date('d/m/Y') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

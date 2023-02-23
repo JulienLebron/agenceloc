@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="text-center my-5">
+    <h1 class="my-4">GESTION DES COMMANDES</h1>
+    <img src="{{ asset('images/agence/banniere-profil1.jpg') }}" alt="image profil" class="card-img-top"
+            style="object-fit: contain;">
+    <div class="alert alert-info">💬 Vous trouverez ci-dessous le tableau contenant l'ensemble des commandes
+    </div>
+
+    {% for message in app.flashes('success') %}
+    <div class="text-center alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+
+    <a href="{{ path('admin_new_commande') }}" class="btn btn-primary mt-3">Ajouter une commande</a>
+</div>
+<table class="table table-bordered table-striped table-hover text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Commande</th>
+            <th>Membre</th>
+            <th>Véhicule</th>
+            <th>Date et heure de départ</th>
+            <th>Date et heure de fin</th>
+            <th>Prix total</th>
+            <th>Date d'enregistrement</th>
+            <th>Editer</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in commandes %}
+        <tr>
+            <td>{{ data.id }}</td>
+            <td>{{ data.users.id}} - {{ data.users.firstname }} {{ data.users.lastname }} - {{ data.users.email }}</td>
+            <td>{{ data.vehicules.title }} €</td>
+            <td>{{ data.startAt | date('d/m/Y à H:i:s') }}</td>
+            <td>{{ data.endAt | date('d/m/Y à H:i:s') }}</td>
+            <td>{{ data.total }} €</td>
+            <td>{{ data.createdAt | date('d/m/Y à H:i:s') }}</td>
+            <td><a href="{{ path('admin_edit_commande', {'id': data.id}) }}" class="btn btn-primary"><i
+                        class="fa-solid fa-pen-to-square"></i></a></td>
+            <td><a href="{{ path('admin_delete_commande', {'id': data.id}) }}" class="btn btn-danger"><i
+                        class="fa-solid fa-trash-can"></i></a></td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}

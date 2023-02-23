@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="text-center">
+<h1 class="mb-4">
+    {% if editMode %}
+        Modification d'une commande
+    {% else %}
+        Création d'une commande 
+    {% endif %}
+</h1>
+</div>
+
+{# form() est une fonction twig permettant d'afficher un formulaire #}
+{# {{ form(formArticle) }} #}
+
+{{ form_start(formEdit, {
+    attr : {
+        'class': 'col-md-7 mx-auto'
+    }
+}) }}
+{# form_start() et form_end() permettent de délimiter un formulaire, de modifier ses champs, de changer la méthode du formulaire ...  #}
+
+{# form_row() permet de gérer l'affichage d'un champ et de son label #}
+{{ form_row(formEdit.startAt, { 'attr': {'placeholder': "Date et heure de départ"} }) }}
+{{ form_row(formEdit.endAt, { 'attr': {'placeholder': "Date et heure de fin"} }) }}
+{# {{ form_row(formEdit.total, { 'attr': {'placeholder': "Total"} }) }} #}
+{{ form_row(formEdit.vehicules, { 'attr': {'placeholder': "Vehicule"} }) }}
+{# {{ form_row(formEdit.users, { 'attr': {'placeholder': "Utilisateur"} }) }} #}
+
+<div class="text-center">
+<button type="submit" class="btn btn-primary mt-2">
+    {% if editMode %}
+        Enregistrer les modifications ✅
+    {% else %}
+        Ajouter la commande ✅
+    {% endif %}
+</button>
+</div>
+
+{{ form_end(formEdit) }}
+
+{% endblock %}

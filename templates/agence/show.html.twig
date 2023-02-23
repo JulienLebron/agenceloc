@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <div class="card mt-5" style="width: 60rem; margin: 0 auto">
+        <img src="{{ asset('images/vehicules/' ~ vehicule.image) }}" alt="photo du vehicule"
+            style="height: 700px; object-fit: contain;">
+        <div class="card-header mt-2">
+            <h1 class="mt-2">{{ vehicule.title }}</h1>
+            <p><span class="badge rounded-pill text-bg-primary"><i class="fa-solid fa-tag"></i> {{ vehicule.price }} € /
+                    jour</span></p>
+            <p><i class="fa-regular fa-calendar"></i> {{ vehicule.createdAt | date('d/m/Y à H:i') }}</p>
+        </div>
+        <div class="card-body">
+            <h2 class="my-4">Critères</h2>
+            <table class="table table-bordered text-center">
+                <tbody>
+                    <tr style="background: #FF6E14; color: white;">
+                        <th scope="col"><i class="fa-solid fa-list"></i> Marque</th>
+                        <th scope="col"><i class="fa-solid fa-list"></i> Modèle</th>
+                        <th scope="col"><i class="fa-solid fa-tag"></i> Tarif Jour</th>
+                    </tr>
+                    <tr>
+                        <td>{{ vehicule.brand }}</td>
+                        <td>{{ vehicule.model }}</td>
+                        <td>{{ vehicule.price }} €</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class="my-4">Description</h2>
+            <p>{{ vehicule.content | raw }}</p>
+        </div>
+        <div class="card-footer">
+            {% if app.user %}
+            <div class="container text-center my-5">
+                <a href="{{ path('agence_new_commande') }}" class="btn btn-primary"
+                    style="background: #FF6E14; color: white;">Réserver ce véhicule</a>
+            </div>
+            {% else %}
+            <div class="container text-center my-5">
+                <div class="alert alert-info">💬 Pour réserver ce véhicule vous devez être connecté</div>
+                <a href="{{ path('app_login') }}" class="btn btn-primary"
+                    style="background: #FF6E14; color: white;">Connexion</a><br><br>
+                <a href="{{ path('app_register') }}">Pas encore de compte ?</a>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

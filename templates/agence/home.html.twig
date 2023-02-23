@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil Agence Location{% endblock %}
+
+{% block body %}
+<div class="container text-center my-5">
+<h1>Nos Véhicules</h1>
+</div>
+
+<section class="container" style="display:flex; justify-content: space-around; flex-wrap: wrap;">
+
+    {% for vehicule in vehicules %}
+
+    <div class="card text-center mb-4" style="width: 25rem;">
+        <img src="{{ asset('images/vehicules/' ~ vehicule.image) }}" class="card-img-top" alt="image du vehicule" style="height: 300px;">
+        <div class="card-body">
+            <h5 class="card-title">{{ vehicule.title }}</h5>
+            <p class="card-text my-3">{{ vehicule.content | slice(0, 200) | raw }}</p>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th scope="row"><i class="fa-regular fa-calendar"></i> Publié le {{ vehicule.createdAt | date('d/m/Y') }}</th>
+                    <th scope="row"><span class="badge rounded-pill text-bg-primary"><i class="fa-solid fa-tag"></i> {{ vehicule.price }} € / jour</span></th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="card-footer">
+            <a href="{{ path('agence_show', {"id" : vehicule.id }) }}" class="btn btn-primary" style="background: #FF6E14; color: white;">Réserver</a>
+        </div>
+    </div>
+
+
+    {% endfor %}
+
+</section>
+
+
+
+{% endblock %}
