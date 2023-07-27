@@ -37,12 +37,6 @@ class CommandeType extends AbstractType
                 // this is actually the default format for single_text
                 'format' => 'yyyy-MM-dd',
                 'invalid_message' => 'La date ne peut pas être antérieure à aujourd\'hui',
-                'constraints' => [
-                    new GreaterThanOrEqual([
-                        'value' => 'today',
-                        'message' => 'La date ne peut pas être antérieure à aujourd\'hui'
-                    ])
-                ]
             ])
             // ->add('total')
             // ->add('createdAt')

@@ -64,8 +64,10 @@ class AgenceController extends AbstractController
      {
          // la classe Request contient les données véhiculées par les superglobales ($_POST, $_GET ...)
          // $vehicule = new Vehicule; // je crée un objet Vehicule vide prêt à être rempli
+         $creation = false;
          if($commande == null)
          {
+            $creation = true;
             $user = $security->getUser();
             dump($user);
             $commande = new Commande;
@@ -81,25 +83,34 @@ class AgenceController extends AbstractController
          if($form->isSubmitted() && $form->isValid())
          {
             $tarif = $commande->getVehicules()->getPrice();
-             $debut = $commande->getStartAt();
-             $fin = $commande->getEndAt();
-             $interval = $debut->diff($fin);
-             $days = $interval->days;
-             $commande->setTotal($days * $tarif);
+            $debut = $commande->getStartAt();
+            $fin = $commande->getEndAt();
+            $interval = $debut->diff($fin);
+            $days = $interval->days;
+            //dd($days);
+            if($days > 0) {
+                $commande->setTotal($days * $tarif);
+            } else {
+                $commande->setTotal($tarif);
+            }
             //  $total = $commande->getTotal();
             //  dd($total);
-             $manager->persist($commande); // prépare l'insertion de l'commande
-             $manager->flush(); // on exécute la requête d'insertion 
+            $manager->persist($commande); // prépare l'insertion de l'commande
+            $manager->flush(); // on exécute la requête d'insertion 
              // cette méthode permet de nous rediriger vers la page de notre commande nouvellement crée
-             $this->addFlash('success', "✅ L'action sur la commande à été réalisé avec succès !");
-             return $this->redirectToRoute('profil');
+            if($creation) {
+                $this->addFlash('success', "✅ La réservation de véhicule à été réalisé avec succès.");
+            } else {
+                $this->addFlash('success', "✅ Modification de la réservation réalisé avec succès.");
+            }
+            return $this->redirectToRoute('profil');
          }
          return $this->render('agence/form_commande.html.twig', [
-             'formEdit' => $form->createView(),
-             // createView() renvoie un objet représentant l'affichage du formulaire
-             'editMode' => $commande->getId() !== NULL 
-             // si nous sommes sur la route /new : editMode = 0
-             // sinon, editMode = 1
+            'formEdit' => $form->createView(),
+            // createView() renvoie un objet représentant l'affichage du formulaire
+            'editMode' => $commande->getId() !== NULL 
+            // si nous sommes sur la route /new : editMode = 0
+            // sinon, editMode = 1
          ]);
      }
 

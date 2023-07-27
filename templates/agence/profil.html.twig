@@ -4,6 +4,11 @@
 
 <div class="container text-center mt-5">
     <h1>Profil</h1>
+    {% for message in app.flashes('success') %}
+        <div class="text-center alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="card mt-5" style="width: 80rem; margin: 0 auto">
         <img src="{{ asset('images/agence/banniere-profil1.jpg') }}" alt="image profil" class="card-img-top"
             style="object-fit: contain;">

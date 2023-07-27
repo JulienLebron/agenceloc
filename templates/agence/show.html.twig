@@ -5,12 +5,12 @@
 <div class="container mt-5">
     <div class="card mt-5" style="width: 60rem; margin: 0 auto">
         <img src="{{ asset('images/vehicules/' ~ vehicule.image) }}" alt="photo du vehicule"
-            style="height: 700px; object-fit: contain;">
+            style="height: 700px; object-fit: cover;">
         <div class="card-header mt-2">
             <h1 class="mt-2">{{ vehicule.title }}</h1>
             <p><span class="badge rounded-pill text-bg-primary"><i class="fa-solid fa-tag"></i> {{ vehicule.price }} € /
                     jour</span></p>
-            <p><i class="fa-regular fa-calendar"></i> {{ vehicule.createdAt | date('d/m/Y à H:i') }}</p>
+            <p>📅 {{ vehicule.createdAt | date('d/m/Y à H:i') }}</p>
         </div>
         <div class="card-body">
             <h2 class="my-4">Critères</h2>

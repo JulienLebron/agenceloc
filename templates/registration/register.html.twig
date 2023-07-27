@@ -7,6 +7,7 @@
     <h1>Inscription</h1>
 </div>
 
+<div class="container col-md-6 mx-auto">
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.pseudo) }}
@@ -14,6 +15,7 @@
         {{ form_row(registrationForm.firstname) }}
         {{ form_row(registrationForm.lastname) }}
         {{ form_row(registrationForm.civility) }}
+</div>
 
 <div class="text-center mt-5">
         <button type="submit" class="btn btn-primary">S'enregister ✅</button>

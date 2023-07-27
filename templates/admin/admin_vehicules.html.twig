@@ -22,7 +22,7 @@
         <tr>
             {% for data in colonnes %}
             {% if (data != 'id') and (data != 'content') %}
-            <th>{{ data }}</th>
+            <th>{{ data |capitalize }}</th>
             {% endif %}
             {% endfor %}
             <th>Voir</th>
@@ -37,9 +37,9 @@
             <td>{{ data.brand }}</td>
             <td>{{ data.model }}</td>
             <td><img src="{{ asset('images/vehicules/' ~ data.image) }}" alt="image de l'article" style="height: 120px; width: 120px; object-fit: contain;"></td>
+            <td>{{ data.price }} €</td>
             <td>{{ data.createdAt | date('d/m/Y à H:i:s') }}</td>
             <td>{{ data.updatedAt | date('d/m/Y à H:i:s') }}</td>
-            <td>{{ data.price }} €</td>
             <td><a href="{{ path('agence_show', {'id': data.id}) }}" class="btn btn-success"><i
                         class="fa-solid fa-eye"></i></a></td>
             <td><a href="{{ path('admin_edit_vehicule', {'id': data.id}) }}" class="btn btn-primary"><i
